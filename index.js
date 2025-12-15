@@ -23,8 +23,13 @@ addToDoButton.addEventListener("click", (e)=>
     renderTodoList(todolist);
 })
 
+showTodo.addEventListener("click", (e)=>
+{
+    console.log("clicked");
+})
+
 function renderTodoList(todolist)
 {
-    showTodo.innerHTML = todolist.map(todo=> `<div><input type="checkbox"><label class="todo">${todo.todo}</label><button>Delete</button></div>`);
+    showTodo.innerHTML = todolist.map(({id, todo, isCompleted})=> `<div><input id="item-${id}" type="checkbox"><label for="item-${id}" class="todo" data-key=${id}>${todo}</label><button>Delete</button></div>`);
 }
 renderTodoList(todolist);
