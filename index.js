@@ -21,6 +21,7 @@ addToDoButton.addEventListener("click", (e)=>
         todolist.push({id : uuid(), todo, isCompleted : false});
     }
     renderTodoList(todolist);
+    todoInput.value = "";
 })
 
 showTodo.addEventListener("click", (e)=>
