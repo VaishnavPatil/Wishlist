@@ -2,7 +2,8 @@ let todoInput = document.querySelector(".input");
 let addToDoButton = document.querySelector(".button");
 let showTodo = document.querySelector(".to-do-continer");
 let todo
-let todolist = [];
+let localData = JSON.parse(localStorage.getItem("todo"));
+let todolist = localData || [];
 
 function uuid() {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
@@ -21,6 +22,7 @@ addToDoButton.addEventListener("click", (e)=>
         todolist.push({id : uuid(), todo, isCompleted : false});
     }
     renderTodoList(todolist);
+    localStorage.setItem("todo", JSON.stringify(todolist));
     todoInput.value = "";
 })
 
@@ -30,6 +32,7 @@ showTodo.addEventListener("click", (e)=>
     let deleteTodoKey = e.target.dataset.todokey;
     todolist = todolist.map(todo=> todo.id === key ? {...todo, isCompleted : !todo.isCompleted } : todo);
     todolist = todolist.filter(todo => todo.id !== deleteTodoKey);
+    localStorage.setItem("todo", JSON.stringify(todolist));
     renderTodoList(todolist);
     console.log(todolist);
 })
@@ -37,7 +40,7 @@ showTodo.addEventListener("click", (e)=>
 function renderTodoList(todolist)
 {
     console.log(todolist);
-    showTodo.innerHTML = todolist.map(({id, todo, isCompleted})=> `<div class="relative"><input class="t-checkbox t-pointer " id="item-${id}" type="checkbox" data-key${id} ${isCompleted ? "checked" : ""}><label for="item-${id}" class="todo todo-text t-pointer ${isCompleted ? "checked-todo" : ""}" data-key=${id}>${todo}</label><button class="button cursor" > <span data-todokey=${id} class="absolute right-0 del-btn material-symbols-outlined">
+    showTodo.innerHTML = todolist.map(({id, todo, isCompleted})=> `<div class="relative"><input class="t-checkbox t-pointer" id="item-${id}" type="checkbox" data-key${id} ${isCompleted ? "checked" : ""}><label for="item-${id}" class="todo todo-text t-pointer ${isCompleted ? "checked-todo" : ""}" data-key=${id}>${todo}</label><button class="button cursor" > <span data-todokey=${id} class="absolute right-0 del-btn material-symbols-outlined">
 delete
 </span> </button></div>`);
 }

@@ -76,8 +76,8 @@ body {
 .del-btn {
     color: #f9fafb;
 }
-
-.material-symbols-outlined {
+.material-symbols-outlined 
+{
   font-variation-settings:
   'FILL' 0,
   'wght' 400,
